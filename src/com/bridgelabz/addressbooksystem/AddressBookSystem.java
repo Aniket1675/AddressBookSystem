@@ -93,6 +93,19 @@ public class AddressBookSystem
             System.out.println("\n\tNo such person found!");
         }
     }
+    public void deletePerson()
+    {
+        int index=this.indexOfPerson();
+        if(index != -1)
+        {
+            Contact contact=this.data.remove(index);
+            System.out.println("\n\tPerson "+contact.getFirstName()+" removed successfully.");
+        }
+        else
+        {
+            System.out.println("\n\tNo one with these details found!");
+        }
+    }
 
     public void showAllPersons()
     {
@@ -107,12 +120,41 @@ public class AddressBookSystem
             System.out.println("\n\n[*]\t\tAddress Book is empty!\t\t\n");
         }
     }
+    public void runMenu()
+    {
+        long choice=-1;
+        while(choice != 0)
+        {
+            System.out.println();
+            System.out.println("o--------------------Address Book System--------------------o");
+            System.out.println("| 1. Add a person");
+            System.out.println("| 2. Edit a person");
+            System.out.println("| 3. Delete a person");
+            System.out.println("| 4. Show all persons");
+            System.out.println("| 5. Exit");
+            System.out.println("o------------------------------------------------------------o");
+            choice=readLong("Enter your choice: ");
+
+            switch((int)choice)
+            {
+                case 1: addPerson();
+                    break;
+                case 2: editPerson();
+                    break;
+                case 3: deletePerson();
+                    break;
+                case 4: showAllPersons();
+                    break;
+                case 5: choice = 0;
+                    break;
+                default: System.out.println("\n\tBad Input!");
+            }
+        }
+    }
 
     public static void main(String[] args)
     {
         AddressBookSystem addressBookSystem = new AddressBookSystem();
-        addressBookSystem.addPerson();
-        addressBookSystem.showAllPersons();
-        addressBookSystem.editPerson();
+        addressBookSystem.runMenu();
     }
 }
