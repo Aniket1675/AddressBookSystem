@@ -22,6 +22,21 @@ public class AddressBookSystem
         long input=scanner.nextLong();
         return input;
     }
+    public int indexOfPerson()
+    {
+        System.out.println();
+        String name=readString("Enter Person's firstName: ");
+        int index=0;
+        for(Contact contact : this.data)
+        {
+            if(contact.getFirstName().equals(name))
+            {
+                return index;
+            }
+            ++index;
+        }
+        return -1;
+    }
     public void addPerson()
     {
         System.out.println();
@@ -38,6 +53,47 @@ public class AddressBookSystem
         this.data.add(newEntry);
         System.out.println("record added successfully to address book.");
     }
+    public void editPerson()
+    {
+        int index=this.indexOfPerson();
+        if(index != -1)
+        {
+            String options="\tWhat you want to change?\n\t1. City\n\t2. State\n\t3. Address\n\t4. Zip Code\n\t" +
+                    "5. PhoneNumber\n: ";
+            int choice=(int)readLong(options);
+
+            switch(choice)
+            {
+                case 1:
+                    this.data.get(index).setCity(readString("Enter new City: "));
+                    System.out.println("\tEntry Modified");
+                    break;
+                case 2:
+                    this.data.get(index).setState(readString("Enter new State: "));
+                    System.out.println("\tEntry Modified");
+                    break;
+                case 3:
+                    this.data.get(index).setAddress(readString("Enter new Address: "));
+                    System.out.println("[*]\tEntry Modified");
+                    break;
+                case 4:
+                    this.data.get(index).setZipCode(readLong("Enter new Zip Code: "));
+                    System.out.println("\tEntry Modified");
+                    break;
+                case 5:
+                    this.data.get(index).setPhoneNumber(readLong("Enter new Phone number: "));
+                    System.out.println("\tEntry Modified");
+                    break;
+                default:
+                    System.out.println("\n\tBad Input!");
+            }
+        }
+        else
+        {
+            System.out.println("\n\tNo such person found!");
+        }
+    }
+
     public void showAllPersons()
     {
 
@@ -57,5 +113,6 @@ public class AddressBookSystem
         AddressBookSystem addressBookSystem = new AddressBookSystem();
         addressBookSystem.addPerson();
         addressBookSystem.showAllPersons();
+        addressBookSystem.editPerson();
     }
 }
